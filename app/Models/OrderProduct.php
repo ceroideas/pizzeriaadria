@@ -31,4 +31,8 @@ class OrderProduct extends Model
     public function size() {
         return $this->belongsTo(Size::class, 'size_id');
     }
+
+    public function productExtraEngridients() {
+        return $this->hasMany(IngredientOrderProduct::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\IngredientOrderProduct;
 use App\Models\Product;
 
 class Ingredient extends Model
@@ -18,6 +19,10 @@ class Ingredient extends Model
 
     public function products() {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function extraInProducts() {
+        return $this->hasMany(IngredientOrderProduct::class);
     }
 
 }

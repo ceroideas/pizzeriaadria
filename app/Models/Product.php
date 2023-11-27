@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\StoreCategory;
 use App\Models\Ingredient;
 use App\Models\Size;
+use App\Models\Image;
 
 class Product extends Model
 {
@@ -33,5 +34,9 @@ class Product extends Model
 
     public function ingredients() {
         return $this->belongsToMany(Ingredient::class);
+    }
+
+    public function images() {
+        return $this->belongsToMany(Image::class);
     }
 }

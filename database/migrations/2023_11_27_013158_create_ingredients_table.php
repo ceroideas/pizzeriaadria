@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-$table->string('name');
-$table->double('extra_price', 6, 2);
-$table->string('image')->nullable();
-$table->boolean('status')->default(true);
+            $table->string('name');
+            $table->double('extra_price', 6, 2);
+            $table->string('image')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

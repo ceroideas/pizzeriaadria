@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\StoreCategory;
 use App\Models\Ingredient;
 use App\Models\OrderProduct;
+use App\Models\Client;
 use App\Models\Size;
 use App\Models\Image;
 
@@ -43,5 +44,9 @@ class Product extends Model
 
     public function orderProducts() {
         return $this->hasMany(OrderProduct::class, 'product_id');
+    }
+
+    public function favorites() {
+        return $this->belongsToMany(Client::class, 'favorites');
     }
 }

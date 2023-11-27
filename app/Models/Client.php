@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Address;
+use App\Models\Product;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Notification;
@@ -34,5 +35,9 @@ class Client extends Model
 
     public function notifications() {
         return $this->hasMany(Notification::class);
+    }
+
+    public function favorites() {
+        return $this->belongsToMany(Product::class, 'favorites');
     }
 }

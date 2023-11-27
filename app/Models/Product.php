@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StoreCategory;
+use App\Models\Ingredient;
 use App\Models\Size;
 
 class Product extends Model
@@ -28,5 +29,9 @@ class Product extends Model
 
     public function sizes() {
         return $this->belongsToMany(Size::class);
+    }
+
+    public function ingredients() {
+        return $this->belongsToMany(Ingredient::class);
     }
 }

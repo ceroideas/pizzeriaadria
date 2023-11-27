@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\Payment;
 
 class Client extends Model
 {
@@ -24,5 +25,9 @@ class Client extends Model
 
     public function orders() {
         return $this->hasMany(Order::class);
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Client;
+use App\Models\OrderProduct;
 
 class Order extends Model
 {
@@ -13,5 +14,9 @@ class Order extends Model
 
     public function client() {
         return $this->belongsTo(Client::class);
+    }
+
+    public function orderProducts() {
+        return $this->hasMany(OrderProduct::class, 'order_id');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StoreCategory;
 use App\Models\Ingredient;
+use App\Models\OrderProduct;
 use App\Models\Size;
 use App\Models\Image;
 
@@ -38,5 +39,9 @@ class Product extends Model
 
     public function images() {
         return $this->belongsToMany(Image::class);
+    }
+
+    public function orderProducts() {
+        return $this->hasMany(OrderProduct::class, 'product_id');
     }
 }

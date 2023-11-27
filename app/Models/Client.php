@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Notification;
 
 class Client extends Model
 {
@@ -29,5 +30,9 @@ class Client extends Model
 
     public function payments() {
         return $this->hasMany(Payment::class);
+    }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class);
     }
 }

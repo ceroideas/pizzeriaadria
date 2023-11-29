@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\ProductsControllers;
+use App\Http\Controllers\V1\StoreCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,11 @@ Route::group(['prefix' => 'v1'], function() {
     Route::group(['prefix' => 'products'], function() {
         Route::get('/',  [ProductsControllers::class,'index']);
         Route::get('/byCategory',  [ProductsControllers::class,'byCategory']);
+    });
+
+    // CATEGORIES
+    Route::group(['prefix' => 'categories'], function() {
+        Route::get('/',  [StoreCategoryController::class,'index']);
     });
 
 });

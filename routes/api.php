@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1'], function() {
     // PRODUCTOS
     Route::group(['prefix' => 'products'], function() {
         Route::get('/',  [ProductsControllers::class,'index']);
+        Route::get('/byCategory',  [ProductsControllers::class,'byCategory']);
     });
 
 });

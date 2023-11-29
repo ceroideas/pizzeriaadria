@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('lat');
             $table->string('lng');
+            $table->boolean('status')->default(true);
             $table->unsignedBigInteger('client_id');
             $table->boolean('default')->default(false);
             $table->timestamps();

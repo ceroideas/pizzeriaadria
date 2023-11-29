@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('product_size', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('size_id');
+            $table->double('price', 6, 2)->nullable();
+            $table->boolean('status')->default(1);
         });
     }
 

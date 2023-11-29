@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('order')->nullable();
             $table->timestamps();
         });
     }

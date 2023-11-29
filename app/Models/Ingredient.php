@@ -12,6 +12,7 @@ class Ingredient extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'slug',
         'extra_price',
         'image',
         'status',

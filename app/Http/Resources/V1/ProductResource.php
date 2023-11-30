@@ -28,7 +28,7 @@ class ProductResource extends JsonResource
 
         $response['category'] = new StoreCategoryResource($this->category);
 
-        $response['sizes'] = StoreCategoryResource::collection($this->sizes);
+        $response['sizes'] = ProductSizeResource::collection($this->sizes);
 
         $response['ingredients'] = IngredientResource::collection($this->ingredients);
 

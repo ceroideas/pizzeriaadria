@@ -8,7 +8,7 @@ use App\Models\StoreCategory;
 use App\Models\Ingredient;
 use App\Models\OrderProduct;
 use App\Models\Client;
-use App\Models\Size;
+use App\Models\ProductSize;
 use App\Models\Image;
 
 class Product extends Model
@@ -31,7 +31,7 @@ class Product extends Model
     }
 
     public function sizes() {
-        return $this->belongsToMany(Size::class);
+        return $this->hasMany(ProductSize::class);
     }
 
     public function ingredients() {

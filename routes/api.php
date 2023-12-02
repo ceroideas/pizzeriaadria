@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\ProductsControllers;
 use App\Http\Controllers\V1\StoreCategoryController;
 use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\OrdersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,11 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('register', [AuthController::class, 'register']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
+    });
+
+    //Order
+    Route::group([ 'middleware' => 'auth:api', 'prefix' => 'order' ], function ($router) {
+        Route::post('addProduct', [OrdersController::class, 'addproduct']);
     });
 
 });

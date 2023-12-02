@@ -23,7 +23,8 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             'email' => 'string|email|required|unique:users',
-            'full_name' => 'string|required',
+            'name' => 'string|required',
+            'lastname' => 'string|required',
             'password' => 'string|required',
             'image' => 'string',
             'phone' => 'string|required',
@@ -40,9 +41,13 @@ class RegisterUserRequest extends FormRequest
             'email.required' => 'El email es requerido',
             'email.unique' => 'El email ya esta en uso',
 
-            // Full name
-            'full_name.string' => 'El nombre tiene que ser un string',
-            'full_name.required' => 'El nombre es requerido',
+            // Name
+            'name.string' => 'El nombre tiene que ser un string',
+            'name.required' => 'El nombre es requerido',
+
+            // Name
+            'lastname.string' => 'El apellido tiene que ser un string',
+            'lastname.required' => 'El apellido es requerido',
 
             // Password
             'password.string' => 'La contraseña tiene que ser un string',

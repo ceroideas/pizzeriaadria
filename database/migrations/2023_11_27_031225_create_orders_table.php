@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->boolean('status')->default(true);
+            $table->string('status')->default('0');
             $table->timestamps();
         });
     }

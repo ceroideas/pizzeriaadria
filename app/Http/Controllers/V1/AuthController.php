@@ -30,7 +30,6 @@ class AuthController extends Controller
     public function register(RegisterUserRequest $request)
     {
         $data = $request->validated();
-        $data['name'] = $data['full_name'];
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);

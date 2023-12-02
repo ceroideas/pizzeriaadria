@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Client;
 
 class User extends \TCG\Voyager\Models\User implements JWTSubject
 {
@@ -64,5 +65,9 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function client() {
+        return $this->hasOne(Client::class);
     }
 }

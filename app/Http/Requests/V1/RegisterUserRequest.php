@@ -26,6 +26,7 @@ class RegisterUserRequest extends FormRequest
             'full_name' => 'string|required',
             'password' => 'string|required',
             'image' => 'string',
+            'phone' => 'string|required',
             'status' => 'boolean'
         ];
     }

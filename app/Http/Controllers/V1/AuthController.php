@@ -34,6 +34,7 @@ class AuthController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
+        $user->client()->create([ 'phone' => $data['phone'] ]);
         return response()->json(['status' => 'success', 'message' => 'User created'], 200);
     }
 
@@ -47,7 +48,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Credenciales Invalidas'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -63,7 +64,7 @@ class AuthController extends Controller
     {
         auth('api')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'success']);
     }
 
     /**

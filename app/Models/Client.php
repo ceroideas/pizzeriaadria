@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Notification;
+use App\Models\User;
 
 class Client extends Model
 {
@@ -18,7 +19,8 @@ class Client extends Model
         'email',
         'password',
         'image',
-        'status',
+        'phone',
+        'status'
     ];
 
     public function addresses() {
@@ -39,5 +41,9 @@ class Client extends Model
 
     public function favorites() {
         return $this->belongsToMany(Product::class, 'favorites');
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

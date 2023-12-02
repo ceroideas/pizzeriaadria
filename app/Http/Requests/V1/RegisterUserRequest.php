@@ -30,4 +30,32 @@ class RegisterUserRequest extends FormRequest
             'status' => 'boolean'
         ];
     }
+
+    function messages(): array {
+        return [
+
+            // Email
+            'email.email' => 'El email tiene que ser un string',
+            'email.email' => 'El email no tiene el formato correcto',
+            'email.required' => 'El email es requerido',
+            'email.unique' => 'El email ya esta en uso',
+
+            // Full name
+            'full_name.string' => 'El nombre tiene que ser un string',
+            'full_name.required' => 'El nombre es requerido',
+
+            // Password
+            'password.string' => 'La contraseña tiene que ser un string',
+            'password.required' => 'La contraseña es requerida',
+
+            // Phone
+            'phone.string' => 'El telefono tiene que ser un string',
+            'phone.required' => 'El telefono es requerido',
+
+            // Status
+            'status.boolean' => 'El status tiene que ser un booleano'
+
+            //'image' => 'string',
+        ];
+    }
 }

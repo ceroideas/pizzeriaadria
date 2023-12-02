@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1'], function() {
     Route::group(['prefix' => 'products'], function() {
         Route::get('/',  [ProductsControllers::class,'index']);
         Route::get('/byCategory',  [ProductsControllers::class,'byCategory']);
+        Route::post('/toggleFavorites',  [ProductsControllers::class, 'toggleFavorites'])->middleware('auth:api');
+        Route::get('/getFavorites',  [ProductsControllers::class, 'getFavorites'])->middleware('auth:api');
     });
 
     // CATEGORIES

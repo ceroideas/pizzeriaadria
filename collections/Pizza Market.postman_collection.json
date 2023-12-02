@@ -52,7 +52,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{server}}/api/v1/products/byCategory?category=1&per_page=2",
+							"raw": "{{server}}/api/v1/products/byCategory?category=1&per_page=15",
 							"host": [
 								"{{server}}"
 							],
@@ -69,8 +69,95 @@
 								},
 								{
 									"key": "per_page",
-									"value": "2"
+									"value": "15"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorites",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/v1/products/getFavorites?per_page=15",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"getFavorites"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Product Favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/products/toggleFavorites",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"toggleFavorites"
 							]
 						}
 					},
@@ -138,7 +225,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"email\": \"admin9@admin.com\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -176,7 +263,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin2@admin.com\",\n    \"full_name\": \"Elvis Garcia\",\n    \"password\": \"password\",\n    \"status\": true\n}",
+							"raw": "{\n    \"email\": \"admin9@admin.com\",\n    \"full_name\": \"Elvis Garcia\",\n    \"password\": \"password\",\n    \"phone\": \"+58 4240000000\",\n    \"status\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"

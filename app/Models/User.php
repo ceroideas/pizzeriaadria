@@ -64,7 +64,14 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'user_id' => $this->id,
+            'email' => $this->email,
+            'name' => $this->name,
+            'lastname' => $this->lastnamt,
+            'status' => $this->status,
+            'client' => $this->client
+        ];
     }
 
     public function client() {

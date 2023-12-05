@@ -42,7 +42,11 @@ Route::group(['prefix' => 'v1'], function() {
 
     //Order
     Route::group([ 'middleware' => 'auth:api', 'prefix' => 'order' ], function ($router) {
+        Route::get('/all', [OrdersController::class, 'index']);
+        Route::get('getCurrent', [OrdersController::class, 'currentOrder']);
         Route::post('addProduct', [OrdersController::class, 'addproduct']);
+        Route::post('deleteProduct', [OrdersController::class, 'deleteProduct']);
+        Route::post('changeOrderStatus', [OrdersController::class, 'changeOrderStatus']);
     });
 
 });

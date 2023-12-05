@@ -15,6 +15,7 @@ class ProductSizeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->size->name,
             'price' => $this->price,
             'status' => $this->status ? true : false

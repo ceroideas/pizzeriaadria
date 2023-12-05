@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IngredientResource extends JsonResource
+class OrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class IngredientResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'extraPrice' => $this->extra_price,
-            'status' => $this->status ? true : false
+            'createdAt' => $this->created_at->format('Y-m-d H:i:s'),
+            'products' => OrderProductResource::collection($this->orderProducts)
         ];
     }
 }

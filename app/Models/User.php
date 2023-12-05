@@ -68,7 +68,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
             'user_id' => $this->id,
             'email' => $this->email,
             'name' => $this->name,
-            'lastname' => $this->lastnamt,
+            'lastname' => $this->lastname,
             'status' => $this->status,
             'client' => $this->client
         ];

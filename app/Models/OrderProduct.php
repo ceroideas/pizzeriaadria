@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Size;
+use App\Models\ProductSize;
 
 class OrderProduct extends Model
 {
@@ -30,6 +31,10 @@ class OrderProduct extends Model
 
     public function size() {
         return $this->belongsTo(Size::class, 'size_id');
+    }
+
+    public function productSize() {
+        return $this->hasOne(ProductSize::class, 'id', 'size_id');
     }
 
     public function productExtraEngridients() {

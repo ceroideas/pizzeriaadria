@@ -21,6 +21,12 @@ class ProductsControllers extends Controller
         return ProductResource::collection($products);
     }
 
+    public function getById(Request $request) {
+        $request->validate([ 'product_id' => 'integer|required' ]);
+        $product = Product::find($request->product_id);
+        return new ProductResource($product);
+    }
+
     public function byCategory(Request $request) {
 
         $request->validate([ 'per_page' => 'integer', 'category' => 'integer|required' ]);

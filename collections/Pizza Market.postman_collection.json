@@ -10,6 +10,38 @@
 			"name": "Products",
 			"item": [
 				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/v1/products/getById?product_id=4",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"getById"
+							],
+							"query": [
+								{
+									"key": "product_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Products",
 					"request": {
 						"method": "GET",

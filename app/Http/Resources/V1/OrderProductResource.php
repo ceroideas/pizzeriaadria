@@ -18,7 +18,8 @@ class OrderProductResource extends JsonResource
             'id' => $this->id,
             'price' => $this->price,
             'name' => $this->product->name,
-            'ingredients' => IngredientOrderProductResource::collection($this->productExtraEngridients)
+            'ingredients' => IngredientOrderProductResource::collection($this->ingredients),
+            'extraIngredients' => ExtraIngredientOrderProductResource::collection($this->extraIngredients)
         ];
 
         if($this->productSize) {

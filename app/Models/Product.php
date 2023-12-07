@@ -38,6 +38,10 @@ class Product extends Model
         return $this->belongsToMany(Ingredient::class);
     }
 
+    public function extraIngredients() {
+        return $this->belongsToMany(Ingredient::class, 'extra_ingredients');
+    }
+
     public function images() {
         return $this->belongsToMany(Image::class);
     }

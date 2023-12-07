@@ -32,6 +32,8 @@ class ProductResource extends JsonResource
 
         $response['ingredients'] = IngredientResource::collection($this->ingredients);
 
+        $response['extra_available'] = IngredientResource::collection($this->extraIngredients);
+
         return $response;
     }
 }

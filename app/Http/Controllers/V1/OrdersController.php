@@ -86,12 +86,10 @@ class OrdersController extends Controller
 
             $orderProduct = $order->orderProducts()->create($orderProductData);
 
-            $ingredients = $product->ingredients()->whereIn('id', $request->extra_ingredients)->get();
-            if ( count($request->extra_ingredients) != count( $ingredients ) ) {
-                return response()->json(['status' => 'error', 'message' => 'Uno de los ingredientes no fue encontrado'], 404);
-            }
+            // Ingredients
+            $productIngredients = $request->ingredients != null ? $product->ingredients()->whereIn('id', $request->ingredients)->get() : $product->ingredients;
 
-            $orderProductIngredients = $ingredients->map(function($ingredient) use ($orderProduct) {
+            $ingredients = $productIngredients->map( function($ingredient) use ($orderProduct){
                 return [
                     'order_product_id' => $orderProduct->id,
                     'ingredient_id' => $ingredient->id,
@@ -99,9 +97,16 @@ class OrdersController extends Controller
                 ];
             });
 
-            foreach ($orderProductIngredients as $element ) {
-                $orderProduct->productExtraEngridients()->create($element);
-            }
+            $ingredients->each( function($ingredient) use ($orderProduct) {
+                $orderProduct->ingredients()->create($ingredient);
+            });
+
+            // Extra Ingredients
+            $extraIngredients = $request->extra_ingredients != null ?  $extraIngredients = $product->extraIngredients()->whereIn('id', $request->extra_ingredients)->get() : collect([]);
+
+            $extraIngredients->each( function($extraIngredient) use ($orderProduct){
+                $orderProduct->extraIngredients()->attach($extraIngredient);
+            });
 
             return response()->json(['status' => 'success', 'message' => 'Producto añadido correctamente'], 200);
         }

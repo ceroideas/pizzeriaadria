@@ -14,9 +14,11 @@ class OrderProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $formattedPrice = number_format($this->price, 2, '.', '');
+
         $response = [
             'id' => $this->id,
-            'price' => $this->price,
+            'price' => $formattedPrice,
             'name' => $this->product->name,
             'ingredients' => IngredientOrderProductResource::collection($this->ingredients),
             'extraIngredients' => ExtraIngredientOrderProductResource::collection($this->extraIngredients)

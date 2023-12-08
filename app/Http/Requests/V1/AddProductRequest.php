@@ -23,7 +23,8 @@ class AddProductRequest extends FormRequest
     {
         return [
             'product_id' => 'integer|required',
-            'product_size' => 'integer'
+            'product_size' => 'integer',
+            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
         ];
     }
 }

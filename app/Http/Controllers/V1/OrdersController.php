@@ -87,7 +87,7 @@ class OrdersController extends Controller
             $orderProduct = $order->orderProducts()->create($orderProductData);
 
             // Ingredients
-            $productIngredients = $request->ingredients != null ? $product->ingredients()->whereIn('id', $request->ingredients)->get() : $product->ingredients;
+            $productIngredients = $request->no_ingredients != null ? $product->ingredients()->whereNotIn('id', $request->no_ingredients)->get() : $product->ingredients;
 
             $ingredients = $productIngredients->map( function($ingredient) use ($orderProduct){
                 return [

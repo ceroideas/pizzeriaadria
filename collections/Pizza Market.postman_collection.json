@@ -503,7 +503,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"product_id\": 1,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [1,2], // Opcional\n    \"extra_ingredients\": [ 1,3 ] // Opcional\n}",
+							"raw": "{\n    \"product_id\": 1,\n    \"price\": 123.33,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [1,2], // Opcional\n    \"extra_ingredients\": [ 1,3 ] // Opcional\n}",
 							"options": {
 								"raw": {
 									"language": "json"

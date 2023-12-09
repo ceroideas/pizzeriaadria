@@ -19,4 +19,14 @@ class Order extends Model
     public function orderProducts() {
         return $this->hasMany(OrderProduct::class, 'order_id');
     }
+
+    public function getTotalAttribute() {
+
+        $totalPrice = $this->orderProducts->reduce(function($carry, $orderProduct){
+            return $carry + floatval($orderProduct->price);
+        }, 0);
+
+        return $totalPrice;
+    }
+
 }

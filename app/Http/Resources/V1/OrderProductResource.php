@@ -18,7 +18,7 @@ class OrderProductResource extends JsonResource
 
         $response = [
             'id' => $this->id,
-            'price' => $formattedPrice,
+            'price' => floatval($formattedPrice),
             'quantity' => $this->quantity,
             'name' => $this->product->name,
             'ingredients' => IngredientOrderProductResource::collection($this->ingredients),

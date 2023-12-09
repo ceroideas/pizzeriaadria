@@ -81,7 +81,8 @@ class OrdersController extends Controller
             $orderProductData = [
                 'product_id' => $product->id,
                 'size_id' => $request->product_size == null ? null : $productSize->id,
-                'price' => $request->price
+                'price' => $request->price,
+                'quantity' => $request->quantity ?? 1
             ];
 
             $orderProduct = $order->orderProducts()->create($orderProductData);

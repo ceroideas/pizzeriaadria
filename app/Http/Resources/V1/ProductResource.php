@@ -14,6 +14,18 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = auth('api')->user()->id ?? null;
+        $inFavorites = false;
+
+        if ($user) {
+
+            $found = auth('api')->user()->client->favorites->first(function($product, $key){
+                return $product->id == $this->id;
+            });
+
+            $inFavorites = $found != null ? true : false;
+
+        }
 
         $response = [
             'id' => $this->id,
@@ -22,6 +34,7 @@ class ProductResource extends JsonResource
             'slug' => $this->slug,
             'featured' => $this->featured ? true : false,
             'recommended' => $this->recommended ? true : false,
+            'favorite' => $inFavorites,
             'price' => $this->price,
             'status' => $this->status ? true : false
         ];

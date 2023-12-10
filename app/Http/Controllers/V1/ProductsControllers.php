@@ -72,4 +72,12 @@ class ProductsControllers extends Controller
         $products = auth('api')->user()->client->favorites()->paginate($request->per_page ?? 15);
         return ProductResource::collection($products);
     }
+
+    public function getRecommended(Request $request) {
+        $request->validate([ 'per_page' => 'integer' ]);
+
+        $products = Product::where(['recommended' => true])->paginate($request->per_page ?? 15);
+        return ProductResource::collection($products);
+    }
+
 }

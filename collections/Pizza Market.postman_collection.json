@@ -75,6 +75,9 @@
 				{
 					"name": "By Category",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -151,6 +154,48 @@
 					"response": []
 				},
 				{
+					"name": "Get Recomended",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/v1/products/getRecommended?per_page=15",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"getRecommended"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Toggle Product Favorite",
 					"request": {
 						"auth": {
@@ -173,7 +218,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"product_id\": 2\n}",
+							"raw": "{\n    \"product_id\": 5\n}",
 							"options": {
 								"raw": {
 									"language": "json"

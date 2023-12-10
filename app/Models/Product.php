@@ -42,12 +42,12 @@ class Product extends Model
         return $this->belongsToMany(Ingredient::class, 'extra_ingredients');
     }
 
-    public function images() {
-        return $this->belongsToMany(Image::class);
-    }
-
     public function orderProducts() {
         return $this->hasMany(OrderProduct::class, 'product_id');
+    }
+
+    public function getImageUrlAttribute() {
+        return asset("storage/{$this->image}");
     }
 
     public function favorites() {

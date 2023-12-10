@@ -26,7 +26,7 @@ class OrdersController extends Controller
 
             $order = $order->first();
             $order->update(['status' => $request->status]);
-            return response()->json(['status' => 'success', 'message' => 'Estatus de la ordend actualizado correctamente'], 200);
+            return response()->json(['status' => 'success', 'message' => 'Estatus de la orden actualizado correctamente'], 200);
 
         }
         // No current order
@@ -63,7 +63,7 @@ class OrdersController extends Controller
 
     public function addproduct(AddProductRequest $request) {
 
-        $product = Product::where(['id' => $request->product_id ]);
+        $product = Product::where(['id' => $request->product_id, 'status' => true ]);
 
         if($product->count()) {
 

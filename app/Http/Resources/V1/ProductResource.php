@@ -36,7 +36,8 @@ class ProductResource extends JsonResource
             'recommended' => $this->recommended ? true : false,
             'favorite' => $inFavorites,
             'price' => $this->price,
-            'status' => $this->status ? true : false
+            'status' => $this->status ? true : false,
+            'img' => $this->image ? $this->image_url : null
         ];
 
         $response['category'] = new StoreCategoryResource($this->category);

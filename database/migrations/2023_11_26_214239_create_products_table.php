@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('featured')->default(false);
             $table->boolean('recommended')->default(false);
             $table->float('price', 6, 2);
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('size_id')->nullable();
             $table->boolean('status')->nullable()->default(true);

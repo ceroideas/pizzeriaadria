@@ -17,14 +17,15 @@ class ProductsControllers extends Controller
 
         $request->validate([ 'per_page' => 'integer' ]);
 
-        $products = Product::paginate($request->per_page ?? 15)->withQueryString();
+        $products = Product::where(['status' => true])->paginate($request->per_page ?? 15)->withQueryString();
         return ProductResource::collection($products);
     }
 
     public function getById(Request $request) {
         $request->validate([ 'product_id' => 'integer|required' ]);
         $product = Product::find($request->product_id);
-        return new ProductResource($product);
+
+        return $product->status ? new ProductResource($product) : response()->json(['status' => 'error', 'messages' => 'Producto no encontrado'], 404);
     }
 
     public function byCategory(Request $request) {
@@ -34,14 +35,14 @@ class ProductsControllers extends Controller
         $query = StoreCategory::where([ 'id' => $request->category ]);
 
         $per_page = $request->per_page ?? 15;
-        return $query->count() ? ProductResource::collection($query->first()->products()->paginate($per_page)->withQueryString())
+        return $query->count() ? ProductResource::collection($query->first()->products()->where(['status' => true])->paginate($per_page)->withQueryString())
             : response()->json(['status' => 'error', 'message' => 'Category not found'], 404);
 
 
     }
 
     public function toggleFavorites(AddProductToFavoritesRequest $request) {
-        $product = Product::where(['id' => $request->product_id ]);
+        $product = Product::where(['id' => $request->product_id, 'status' => true ]);
 
         if($product->count()) {
 
@@ -69,14 +70,16 @@ class ProductsControllers extends Controller
     public function getFavorites(Request $request) {
         $request->validate([ 'per_page' => 'integer' ]);
 
-        $products = auth('api')->user()->client->favorites()->paginate($request->per_page ?? 15);
+        $user = auth('api')->user()->client;
+        $products = $user->favorites()->where(['status' => true])->paginate($request->per_page ?? 15);
+
         return ProductResource::collection($products);
     }
 
     public function getRecommended(Request $request) {
         $request->validate([ 'per_page' => 'integer' ]);
 
-        $products = Product::where(['recommended' => true])->paginate($request->per_page ?? 15);
+        $products = Product::where(['recommended' => true, 'status' => true])->paginate($request->per_page ?? 15);
         return ProductResource::collection($products);
     }
 

@@ -21,7 +21,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{server}}/api/v1/products/getById?product_id=1",
+							"raw": "{{server}}/api/v1/products/getById?product_id=149",
 							"host": [
 								"{{server}}"
 							],
@@ -34,7 +34,7 @@
 							"query": [
 								{
 									"key": "product_id",
-									"value": "1"
+									"value": "149"
 								}
 							]
 						}
@@ -66,6 +66,11 @@
 								{
 									"key": "per_page",
 									"value": "15"
+								},
+								{
+									"key": "page",
+									"value": "11",
+									"disabled": true
 								}
 							]
 						}
@@ -76,7 +81,14 @@
 					"name": "By Category",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -157,14 +169,7 @@
 					"name": "Get Recomended",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [
@@ -218,7 +223,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"product_id\": 5\n}",
+							"raw": "{\n    \"product_id\": 148\n}",
 							"options": {
 								"raw": {
 									"language": "json"

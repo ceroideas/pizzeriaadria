@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Http\Resources\AlergenoResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -47,6 +48,8 @@ class ProductResource extends JsonResource
         $response['ingredients'] = IngredientResource::collection($this->ingredients);
 
         $response['extra_available'] = IngredientResource::collection($this->extraIngredients);
+
+        $response['alergenos'] = AlergenoResource::collection($this->alergenos);
 
         return $response;
     }

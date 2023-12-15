@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Alergeno extends Model
 {
     use HasFactory;
+
+    public function getImageUrlAttribute() {
+        return asset("storage/{$this->image}");
+    }
 }

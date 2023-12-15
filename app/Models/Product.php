@@ -9,6 +9,7 @@ use App\Models\Ingredient;
 use App\Models\OrderProduct;
 use App\Models\Client;
 use App\Models\ProductSize;
+use App\Models\Alergeno;
 use App\Models\Image;
 
 class Product extends Model
@@ -52,5 +53,9 @@ class Product extends Model
 
     public function favorites() {
         return $this->belongsToMany(Client::class, 'favorites');
+    }
+
+    public function alergenos() {
+        return $this->belongsToMany(Alergeno::class);
     }
 }

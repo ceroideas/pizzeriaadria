@@ -15,142 +15,142 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
       $pizzas = [
-          //   [
-          //       'name' => 'Pizza Margarita',
-          //       'description' => 'Tomate, mozzarella, albahaca',
-          //       'slug' => 'pizza-margarita',
-          //       'featured' => true,
-          //       'recommended' => false,
-          //       'price' => 12.99,
-          //       'category_id' => 1, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            [
+                'name' => 'Pizza Margarita',
+                'description' => 'Tomate, mozzarella, albahaca',
+                'slug' => 'pizza-margarita',
+                'featured' => true,
+                'recommended' => false,
+                'price' => 12.99,
+                'category_id' => 1, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   [
-          //       'name' => 'Pizza Pepperoni',
-          //       'description' => 'Tomate, mozzarella, pepperoni',
-          //       'slug' => 'pizza-pepperoni',
-          //       'featured' => false,
-          //       'recommended' => true,
-          //       'price' => 14.99,
-          //       'category_id' => 1, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            [
+                'name' => 'Pizza Pepperoni',
+                'description' => 'Tomate, mozzarella, pepperoni',
+                'slug' => 'pizza-pepperoni',
+                'featured' => false,
+                'recommended' => true,
+                'price' => 14.99,
+                'category_id' => 1, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   [
-          //       'name' => 'Pizza BBQ Chicken',
-          //       'description' => 'Salsa barbacoa, pollo, cebolla',
-          //       'slug' => 'pizza-bbq-chicken',
-          //       'featured' => true,
-          //       'recommended' => true,
-          //       'price' => 16.99,
-          //       'category_id' => 2, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            [
+                'name' => 'Pizza BBQ Chicken',
+                'description' => 'Salsa barbacoa, pollo, cebolla',
+                'slug' => 'pizza-bbq-chicken',
+                'featured' => true,
+                'recommended' => true,
+                'price' => 16.99,
+                'category_id' => 2, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   [
-          //       'name' => 'Pizza Vegetariana',
-          //       'description' => 'Tomate, mozzarella, champiñones, pimientos, aceitunas',
-          //       'slug' => 'pizza-vegetariana',
-          //       'featured' => false,
-          //       'recommended' => false,
-          //       'price' => 13.99,
-          //       'category_id' => 3, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            [
+                'name' => 'Pizza Vegetariana',
+                'description' => 'Tomate, mozzarella, champiñones, pimientos, aceitunas',
+                'slug' => 'pizza-vegetariana',
+                'featured' => false,
+                'recommended' => false,
+                'price' => 13.99,
+                'category_id' => 3, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          // // Pizza Hawaiana
-          //   [
-          //       'name' => 'Pizza Hawaiana',
-          //       'description' => 'Tomate, mozzarella, jamón, piña',
-          //       'slug' => 'pizza-hawaiana',
-          //       'featured' => true,
-          //       'recommended' => false,
-          //       'price' => 15.99,
-          //       'category_id' => 1, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+          // Pizza Hawaiana
+            [
+                'name' => 'Pizza Hawaiana',
+                'description' => 'Tomate, mozzarella, jamón, piña',
+                'slug' => 'pizza-hawaiana',
+                'featured' => true,
+                'recommended' => false,
+                'price' => 15.99,
+                'category_id' => 1, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   // Pizza Mediterránea
-          //   [
-          //       'name' => 'Pizza Mediterránea',
-          //       'description' => 'Tomate, mozzarella, aceitunas, tomates secos, albahaca',
-          //       'slug' => 'pizza-mediterranea',
-          //       'featured' => true,
-          //       'recommended' => true,
-          //       'price' => 17.99,
-          //       'category_id' => 2, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            // Pizza Mediterránea
+            [
+                'name' => 'Pizza Mediterránea',
+                'description' => 'Tomate, mozzarella, aceitunas, tomates secos, albahaca',
+                'slug' => 'pizza-mediterranea',
+                'featured' => true,
+                'recommended' => true,
+                'price' => 17.99,
+                'category_id' => 2, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   // Pizza BBQ Vegana
-          //   [
-          //       'name' => 'Pizza BBQ Vegana',
-          //       'description' => 'Salsa barbacoa, tofu, cebolla morada, pimientos',
-          //       'slug' => 'pizza-bbq-vegana',
-          //       'featured' => false,
-          //       'recommended' => true,
-          //       'price' => 16.99,
-          //       'category_id' => 3,// Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            // Pizza BBQ Vegana
+            [
+                'name' => 'Pizza BBQ Vegana',
+                'description' => 'Salsa barbacoa, tofu, cebolla morada, pimientos',
+                'slug' => 'pizza-bbq-vegana',
+                'featured' => false,
+                'recommended' => true,
+                'price' => 16.99,
+                'category_id' => 3,// Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   // Pizza de Queso Cuatro
-          //   [
-          //       'name' => 'Pizza de Queso Cuatro',
-          //       'description' => 'Mozzarella, queso cheddar, queso feta, queso parmesano',
-          //       'slug' => 'pizza-queso-cuatro',
-          //       'featured' => false,
-          //       'recommended' => false,
-          //       'price' => 18.99,
-          //       'category_id' => 2, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            // Pizza de Queso Cuatro
+            [
+                'name' => 'Pizza de Queso Cuatro',
+                'description' => 'Mozzarella, queso cheddar, queso feta, queso parmesano',
+                'slug' => 'pizza-queso-cuatro',
+                'featured' => false,
+                'recommended' => false,
+                'price' => 18.99,
+                'category_id' => 2, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   // Pizza de Pollo y Champiñones
-          //   [
-          //       'name' => 'Pizza de Pollo y Champiñones',
-          //       'description' => 'Tomate, mozzarella, pollo a la parrilla, champiñones',
-          //       'slug' => 'pizza-pollo-champinones',
-          //       'featured' => false,
-          //       'recommended' => true,
-          //       'price' => 19.99,
-          //       'category_id' => 2, // Reemplaza con la categoría correcta
-          //       'status' => true,
-          //   ],
+            // Pizza de Pollo y Champiñones
+            [
+                'name' => 'Pizza de Pollo y Champiñones',
+                'description' => 'Tomate, mozzarella, pollo a la parrilla, champiñones',
+                'slug' => 'pizza-pollo-champinones',
+                'featured' => false,
+                'recommended' => true,
+                'price' => 19.99,
+                'category_id' => 2, // Reemplaza con la categoría correcta
+                'status' => true,
+            ],
 
-          //   [
-          //       'name' => 'Pizza Pollo BBQ',
-          //       'description' => 'Pollo a la barbacoa, cebolla, mozzarella',
-          //       'slug' => 'pizza-pollo-bbq',
-          //       'featured' => true,
-          //       'recommended' => true,
-          //       'price' => 14.99,
-          //       'category_id' => 2,
-          //       'status' => true,
-          //   ],
+            [
+                'name' => 'Pizza Pollo BBQ',
+                'description' => 'Pollo a la barbacoa, cebolla, mozzarella',
+                'slug' => 'pizza-pollo-bbq',
+                'featured' => true,
+                'recommended' => true,
+                'price' => 14.99,
+                'category_id' => 2,
+                'status' => true,
+            ],
 
-          //   [
-          //       'name' => 'Pizza Vegetariana Deluxe',
-          //       'description' => 'Tomate, mozzarella, champiñones, espinacas, aceitunas',
-          //       'slug' => 'pizza-vegetariana-deluxe',
-          //       'featured' => false,
-          //       'recommended' => true,
-          //       'price' => 16.99,
-          //       'category_id' => 3,
-          //       'status' => true,
-          //   ],
+            [
+                'name' => 'Pizza Vegetariana Deluxe',
+                'description' => 'Tomate, mozzarella, champiñones, espinacas, aceitunas',
+                'slug' => 'pizza-vegetariana-deluxe',
+                'featured' => false,
+                'recommended' => true,
+                'price' => 16.99,
+                'category_id' => 3,
+                'status' => true,
+            ],
 
-          //   [
-          //       'name' => 'Pizza Hawaiana Especial',
-          //       'description' => 'Tomate, mozzarella, jamón, piña, bacon',
-          //       'slug' => 'pizza-hawaiana-especial',
-          //       'featured' => true,
-          //       'recommended' => false,
-          //       'price' => 15.99,
-          //       'category_id' => 1,
-          //       'status' => true,
-          //   ]
+            [
+                'name' => 'Pizza Hawaiana Especial',
+                'description' => 'Tomate, mozzarella, jamón, piña, bacon',
+                'slug' => 'pizza-hawaiana-especial',
+                'featured' => true,
+                'recommended' => false,
+                'price' => 15.99,
+                'category_id' => 1,
+                'status' => true,
+            ],
 
             [
                 'name' => 'Pizza Carnívora',

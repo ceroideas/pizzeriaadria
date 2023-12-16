@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddProductToFavoritesRequest;
 use App\Http\Resources\V1\ProductResource;
 use App\Http\Resources\V1\ProductSizeResource;
+use App\Models\Alergeno;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\StoreCategory;
@@ -19,6 +20,16 @@ class ProductsControllers extends Controller
 
         $products = Product::where(['status' => true])->paginate($request->per_page ?? 15)->withQueryString();
         return ProductResource::collection($products);
+    }
+
+    public function getByAlergenoId(Request $request) {
+        $request->validate([ 'per_page' => 'integer', 'id' => 'integer|required' ]);
+
+        $query = Alergeno::where([ 'id' => $request->id ]);
+
+        $per_page = $request->per_page ?? 15;
+        return $query->count() ? ProductResource::collection($query->first()->products()->where(['status' => true])->paginate($per_page)->withQueryString())
+            : response()->json(['status' => 'error', 'message' => 'Alergeno no encontrado'], 404);
     }
 
     public function getById(Request $request) {

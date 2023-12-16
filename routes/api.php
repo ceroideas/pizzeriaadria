@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('/getFavorites',  [ProductsControllers::class, 'getFavorites'])->middleware('auth:api');
         Route::get('/getRecommended',  [ProductsControllers::class, 'getRecommended']);
         Route::get('/getById',  [ProductsControllers::class, 'getById']);
+        Route::get('/getByAlergeno',  [ProductsControllers::class, 'getByAlergenoId']);
     });
 
     // CATEGORIES

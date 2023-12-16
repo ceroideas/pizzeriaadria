@@ -28,6 +28,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('/getRecommended',  [ProductsControllers::class, 'getRecommended']);
         Route::get('/getById',  [ProductsControllers::class, 'getById']);
         Route::get('/getByAlergeno',  [ProductsControllers::class, 'getByAlergenoId']);
+        Route::get('/searchByName',  [ProductsControllers::class, 'searchByName']);
     });
 
     // CATEGORIES

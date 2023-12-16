@@ -22,6 +22,15 @@ class ProductsControllers extends Controller
         return ProductResource::collection($products);
     }
 
+    public function searchByName(Request $request) {
+        $request->validate([ 'per_page' => 'integer', 'name' => 'string|required' ]);
+
+        $products = Product::where('name', 'like', '%'. $request->name .'%');
+
+        $per_page = $request->per_page ?? 15;
+        return ProductResource::collection($products->paginate($per_page)->withQueryString());
+    }
+
     public function getByAlergenoId(Request $request) {
         $request->validate([ 'per_page' => 'integer', 'id' => 'integer|required' ]);
 

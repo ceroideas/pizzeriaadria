@@ -21,7 +21,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{server}}/api/v1/products/getById?product_id=149",
+							"raw": "{{server}}/api/v1/products/getById?product_id=1",
 							"host": [
 								"{{server}}"
 							],
@@ -34,7 +34,7 @@
 							"query": [
 								{
 									"key": "product_id",
-									"value": "149"
+									"value": "1"
 								}
 							]
 						}
@@ -99,7 +99,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{server}}/api/v1/products/byCategory?category=1&per_page=15",
+							"raw": "{{server}}/api/v1/products/byCategory?category=6&per_page=15",
 							"host": [
 								"{{server}}"
 							],
@@ -112,7 +112,7 @@
 							"query": [
 								{
 									"key": "category",
-									"value": "1"
+									"value": "6"
 								},
 								{
 									"key": "per_page",
@@ -191,6 +191,74 @@
 								"getRecommended"
 							],
 							"query": [
+								{
+									"key": "per_page",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Alergeno",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/v1/products/getByAlergeno?id=1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"getByAlergeno"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/v1/products/searchByName?name=especial&per_page=15",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"searchByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "especial"
+								},
 								{
 									"key": "per_page",
 									"value": "15"
@@ -553,7 +621,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"product_id\": 1,\n    \"price\": 1.02,\n    //\"quantity\": 2,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [1,2], // Opcional\n    \"extra_ingredients\": [ 1,3 ] // Opcional\n}",
+							"raw": "{\n    \"product_id\": 1,\n    \"price\": 1.02,\n    //\"quantity\": 2,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [ 8 ], // Opcional\n    \"extra_ingredients\": [ 7, 10, 13 ] // Opcional\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -660,6 +728,52 @@
 								"v1",
 								"order",
 								"changeOrderStatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alergenos",
+			"item": [
+				{
+					"name": "Get Alergenos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/api/v1/alergenos?per_page=4",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"alergenos"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "4"
+								}
 							]
 						}
 					},

@@ -14,8 +14,22 @@ class StoreCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        StoreCategory::factory(5)->create()->each(function ($category) {
-            $category->products()->saveMany( Product::factory(30)->create() );
-        });
+
+        $categories = [
+            ['name' => 'Pizzas', 'slug' => 'pizzas', 'status' => true],
+            ['name' => 'Bebidas', 'slug' => 'bebidas', 'status' => true],
+            ['name' => 'Postres', 'slug' => 'postres', 'status' => true],
+        ];
+
+        foreach ($categories as $category) {
+            StoreCategory::create($category);
+        }
+
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $randomCategory = StoreCategory::inRandomOrder()->first();
+            $product->category()->associate($randomCategory)->save();
+        }
     }
 }

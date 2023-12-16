@@ -23,6 +23,7 @@ class OrderProductResource extends JsonResource
             'quantity' => $this->quantity,
             'img' => $this->product->image_url,
             'name' => $this->product->name,
+            'description' => $this->createDescription(),
             'ingredients' => IngredientOrderProductResource::collection($this->ingredients),
             'extraIngredients' => ExtraIngredientOrderProductResource::collection($this->extraIngredients),
             'alergenos' => AlergenoResource::collection( $this->product->alergenos )
@@ -40,5 +41,15 @@ class OrderProductResource extends JsonResource
 
 
         return $response;
+    }
+
+    private function createDescription() {
+        $description = [];
+
+        foreach ($this->ingredients as $ingredient) {
+            $description[] = $ingredient->ingredient->name;
+        }
+
+        return join(', ', $description);
     }
 }

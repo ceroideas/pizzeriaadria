@@ -61,58 +61,122 @@ class OrdersController extends Controller
         return response()->json(['status' => 'error', 'message' => 'No tienes un carrito de compras'], 404);
     }
 
-    public function addproduct(AddProductRequest $request) {
 
-        $product = Product::where(['id' => $request->product_id, 'status' => true ]);
+    public function addProducts(AddProductRequest $request) {
+        $responseMessages = [];
 
-        if($product->count()) {
+        foreach ($request->all() as $productData) {
+            $product = Product::where(['id' => $productData['product_id'], 'status' => true])->first();
 
-            $orders = auth()->user()->client->orders()->where(['status' => '0']);
-            $order = $orders->count() ? $orders->first() : auth()->user()->client->orders()->create(['status' => '0']);
+            if ($product) {
+                $orders = auth()->user()->client->orders()->where(['status' => '0']);
+                $order = $orders->count() ? $orders->first() : auth()->user()->client->orders()->create(['status' => '0']);
 
-            $product = $product->first();
-            $productSize = $product->sizes()->where(['id' => $request->product_size])->first();
+                $productSize = null;
 
-            // Size not found
-            if ($productSize == null && $request->product_size != null ) {
-                return response()->json(['status' => 'error', 'message' => 'Tamaño del producto no encontrado'], 404);
-            }
+                if ($productData['product_size'] != null) {
+                    $productSize = $product->sizes()->where(['id' => $productData['product_size']])->first();
 
-            $orderProductData = [
-                'product_id' => $product->id,
-                'size_id' => $request->product_size == null ? null : $productSize->id,
-                'price' => $request->price,
-                'quantity' => $request->quantity ?? 1
-            ];
+                    // Size not found
+                    if ($productSize == null) {
+                        $responseMessages[] = ['status' => 'error', 'message' => 'Tamaño del producto no encontrado'];
+                        continue; // Skip to the next iteration
+                    }
+                }
 
-            $orderProduct = $order->orderProducts()->create($orderProductData);
-
-            // Ingredients
-            $productIngredients = $request->no_ingredients != null ? $product->ingredients()->whereNotIn('id', $request->no_ingredients)->get() : $product->ingredients;
-
-            $ingredients = $productIngredients->map( function($ingredient) use ($orderProduct){
-                return [
-                    'order_product_id' => $orderProduct->id,
-                    'ingredient_id' => $ingredient->id,
-                    'extra_price' => $ingredient->extra_price
+                $orderProductData = [
+                    'product_id' => $product->id,
+                    'size_id' => $productData['product_size'] == null ? null : $productSize->id,
+                    'price' => $productData['price'],
+                    'quantity' => $productData['quantity'] ?? 1
                 ];
-            });
 
-            $ingredients->each( function($ingredient) use ($orderProduct) {
-                $orderProduct->ingredients()->create($ingredient);
-            });
+                $orderProduct = $order->orderProducts()->create($orderProductData);
 
-            // Extra Ingredients
-            $extraIngredients = $request->extra_ingredients != null ?  $extraIngredients = $product->extraIngredients()->whereIn('id', $request->extra_ingredients)->get() : collect([]);
+                // Ingredients
+                $productIngredients = $productData['no_ingredients'] != null ? $product->ingredients()->whereNotIn('id', $productData['no_ingredients'])->get() : $product->ingredients;
 
-            $extraIngredients->each( function($extraIngredient) use ($orderProduct){
-                $orderProduct->extraIngredients()->attach($extraIngredient);
-            });
+                $ingredients = $productIngredients->map(function ($ingredient) use ($orderProduct) {
+                    return [
+                        'order_product_id' => $orderProduct->id,
+                        'ingredient_id' => $ingredient->id,
+                        'extra_price' => $ingredient->extra_price
+                    ];
+                });
 
-            return response()->json(['status' => 'success', 'message' => 'Producto añadido correctamente'], 200);
+                $ingredients->each(function ($ingredient) use ($orderProduct) {
+                    $orderProduct->ingredients()->create($ingredient);
+                });
+
+                // Extra Ingredients
+                $extraIngredients = $productData['extra_ingredients'] != null ? $product->extraIngredients()->whereIn('id', $productData['extra_ingredients'])->get() : collect([]);
+
+                $extraIngredients->each(function ($extraIngredient) use ($orderProduct) {
+                    $orderProduct->extraIngredients()->attach($extraIngredient);
+                });
+
+                $responseMessages[] = ['status' => 'success', 'message' => 'Producto añadido correctamente', 'product_id' => $productData['product_id']];
+            } else {
+                // Product Not found
+                $responseMessages[] = ['status' => 'error', 'message' => 'Producto no encontrado', 'product_id' => $productData['product_id']];
+            }
         }
 
-        // Product Not found
-        return response()->json(['status' => 'error', 'message' => 'Producto no encontrado'], 404);
+        return response()->json($responseMessages, 200);
     }
+
+    // public function addproduct(AddProductRequest $request) {
+
+    //     $product = Product::where(['id' => $request->product_id, 'status' => true ]);
+
+    //     if($product->count()) {
+
+    //         $orders = auth()->user()->client->orders()->where(['status' => '0']);
+    //         $order = $orders->count() ? $orders->first() : auth()->user()->client->orders()->create(['status' => '0']);
+
+    //         $product = $product->first();
+    //         $productSize = $product->sizes()->where(['id' => $request->product_size])->first();
+
+    //         // Size not found
+    //         if ($productSize == null && $request->product_size != null ) {
+    //             return response()->json(['status' => 'error', 'message' => 'Tamaño del producto no encontrado'], 404);
+    //         }
+
+    //         $orderProductData = [
+    //             'product_id' => $product->id,
+    //             'size_id' => $request->product_size == null ? null : $productSize->id,
+    //             'price' => $request->price,
+    //             'quantity' => $request->quantity ?? 1
+    //         ];
+
+    //         $orderProduct = $order->orderProducts()->create($orderProductData);
+
+    //         // Ingredients
+    //         $productIngredients = $request->no_ingredients != null ? $product->ingredients()->whereNotIn('id', $request->no_ingredients)->get() : $product->ingredients;
+
+    //         $ingredients = $productIngredients->map( function($ingredient) use ($orderProduct){
+    //             return [
+    //                 'order_product_id' => $orderProduct->id,
+    //                 'ingredient_id' => $ingredient->id,
+    //                 'extra_price' => $ingredient->extra_price
+    //             ];
+    //         });
+
+    //         $ingredients->each( function($ingredient) use ($orderProduct) {
+    //             $orderProduct->ingredients()->create($ingredient);
+    //         });
+
+    //         // Extra Ingredients
+    //         $extraIngredients = $request->extra_ingredients != null ?  $extraIngredients = $product->extraIngredients()->whereIn('id', $request->extra_ingredients)->get() : collect([]);
+
+    //         $extraIngredients->each( function($extraIngredient) use ($orderProduct){
+    //             $orderProduct->extraIngredients()->attach($extraIngredient);
+    //         });
+
+    //         return response()->json(['status' => 'success', 'message' => 'Producto añadido correctamente'], 200);
+    //     }
+
+    //     // Product Not found
+    //     return response()->json(['status' => 'error', 'message' => 'Producto no encontrado'], 404);
+    // }
 }

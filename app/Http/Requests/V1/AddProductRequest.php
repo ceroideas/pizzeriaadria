@@ -22,9 +22,9 @@ class AddProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'integer|required',
-            'product_size' => 'integer',
-            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            '*.product_id' => 'integer|required',
+            '*.product_size' => 'integer',
+            '*.price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
         ];
     }
 }

@@ -74,7 +74,7 @@ class OrdersController extends Controller
 
                 $productSize = null;
 
-                if ($productData['product_size'] != null) {
+                if ($productData['product_size'] ?? false ) {
                     $productSize = $product->sizes()->where(['id' => $productData['product_size']])->first();
 
                     // Size not found
@@ -84,10 +84,20 @@ class OrdersController extends Controller
                     }
                 }
 
+                // Calculate Extra Ingredients total price
+                if( $productData['extra_ingredients'] ?? false) {
+                    $extraIngredients = $product->extraIngredients()->whereIn('id', $productData['extra_ingredients'])->get();
+                    $extraIngredientsPriceTotal = $extraIngredients->sum('extra_price');
+                }else {
+                    $extraIngredientsPriceTotal = 0;
+                }
+
+                $price = !isset($productData['product_size']) ? $product->price + $extraIngredientsPriceTotal : $productSize->price + $extraIngredientsPriceTotal;
+
                 $orderProductData = [
                     'product_id' => $product->id,
                     'size_id' => $productData['product_size'] == null ? null : $productSize->id,
-                    'price' => $productData['price'],
+                    'price' => $price,
                     'quantity' => $productData['quantity'] ?? 1
                 ];
 
@@ -109,7 +119,12 @@ class OrdersController extends Controller
                 });
 
                 // Extra Ingredients
-                $extraIngredients = $productData['extra_ingredients'] != null ? $product->extraIngredients()->whereIn('id', $productData['extra_ingredients'])->get() : collect([]);
+                if ($productData['extra_ingredients'] ?? false) {
+                    $extraIngredients = $product->extraIngredients()->whereIn('id', $productData['extra_ingredients'])->get();
+                }else {
+                    $extraIngredients = collect([]);
+                }
+                //$extraIngredients = $productData['extra_ingredients'] != null ? $product->extraIngredients()->whereIn('id', $productData['extra_ingredients'])->get() : collect([]);
 
                 $extraIngredients->each(function ($extraIngredient) use ($orderProduct) {
                     $orderProduct->extraIngredients()->attach($extraIngredient);

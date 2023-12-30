@@ -96,7 +96,7 @@ class OrdersController extends Controller
 
                 $orderProductData = [
                     'product_id' => $product->id,
-                    'size_id' => $productData['product_size'] == null ? null : $productSize->id,
+                    'size_id' => !isset($productData['product_size']) ? null : $productSize->id,
                     'price' => $price,
                     'quantity' => $productData['quantity'] ?? 1
                 ];
@@ -104,7 +104,7 @@ class OrdersController extends Controller
                 $orderProduct = $order->orderProducts()->create($orderProductData);
 
                 // Ingredients
-                $productIngredients = $productData['no_ingredients'] != null ? $product->ingredients()->whereNotIn('id', $productData['no_ingredients'])->get() : $product->ingredients;
+                $productIngredients = isset($productData['no_ingredients']) ? $product->ingredients()->whereNotIn('id', $productData['no_ingredients'])->get() : $product->ingredients;
 
                 $ingredients = $productIngredients->map(function ($ingredient) use ($orderProduct) {
                     return [

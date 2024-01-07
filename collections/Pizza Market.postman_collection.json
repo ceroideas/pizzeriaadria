@@ -53,7 +53,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{server}}/api/v1/products?per_page=15",
+							"raw": "{{server}}/api/v1/products?per_page=15&page=1",
 							"host": [
 								"{{server}}"
 							],
@@ -69,8 +69,7 @@
 								},
 								{
 									"key": "page",
-									"value": "11",
-									"disabled": true
+									"value": "1"
 								}
 							]
 						}
@@ -621,7 +620,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n    \"product_id\": 1,\n    \"price\": 1.02,\n    //\"quantity\": 2,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [ 8 ], // Opcional\n    \"extra_ingredients\": [ 7, 10, 13 ] // Opcional\n    },\n    \n    {\n    \"product_id\": 99,\n    \"price\": 1.02,\n    //\"quantity\": 2,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [ 8 ], // Opcional\n    \"extra_ingredients\": [ 7, 10, 13 ] // Opcional\n}\n]\n",
+							"raw": "[\n    {\n    \"product_id\": 1,\n    \"quantity\": 2,\n    //\"product_size\": 1, // Opcional\n    \"extra_ingredients\": [ 7, 10, 13 ] // Opcional\n    //\"no_ingredients\": [ 8 ] // Opcional\n    \n    },\n    \n    {\n    \"product_id\": 99,\n    \"price\": 1.02,\n    //\"quantity\": 2,\n    \"product_size\": 1, // Opcional\n    \"no_ingredients\": [ 8 ], // Opcional\n    \"extra_ingredients\": [ 7, 10, 13 ] // Opcional\n}\n]\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -773,6 +772,62 @@
 								{
 									"key": "per_page",
 									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Make Payment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cardNumber\": 4548810000000003,\n    \"ccv\": 123,\n\n\n    //\"expirationDate\": 2312,\n    \"expirationDate\": 1223\n    // Formato: AAMM \n    // Caducidad de la tarjeta. Su formato es AAMM, siendo AA los dos últimos dígitos del año y MM los dos dígitos del mes.\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/payments",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}

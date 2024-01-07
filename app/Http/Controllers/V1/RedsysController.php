@@ -13,11 +13,11 @@ class RedsysController extends Controller
 
 
 public function makePayment(MakePaymentRequest $request) {
+    $order = time();
     Redsys::setAmount(123123);
-    Redsys::setOrder(time());
+    Redsys::setOrder($order);
     Redsys::setCurrency('978');
     Redsys::setMerchantcode(env('REDSYS_MERCHANT_CODE'));
-    Redsys::setIdentifier('REQUIRED');
     Redsys::setTerminal(env('REDSYS_TERMINAL'));
     Redsys::setTransactiontype('T');
     Redsys::setExpiryDate($request->expirationDate);
@@ -31,10 +31,9 @@ public function makePayment(MakePaymentRequest $request) {
     // Construir el arreglo de datos
     $datosPago = [
         'DS_MERCHANT_AMOUNT' => 123123,
-        'DS_MERCHANT_ORDER' => 12345678,
-        "DS_MERCHANT_CURRENCY" => "840",
+        'DS_MERCHANT_ORDER' => $order,
+        "DS_MERCHANT_CURRENCY" => "978",
         "DS_MERCHANT_MERCHANTCODE" => env('REDSYS_MERCHANT_CODE'),
-        "DS_MERCHANT_IDENTIFIER" => 'REQUIRED',
         'DS_MERCHANT_TERMINAL' => env('REDSYS_TERMINAL'),
         'DS_MERCHANT_TRANSACTIONTYPE' => 'T',
         "DS_MERCHANT_EXPIRYDATE" => $request->expirationDate,
@@ -42,16 +41,13 @@ public function makePayment(MakePaymentRequest $request) {
         "DS_MERCHANT_CVV2" => $request->ccv
     ];
 
-    // Convertir el arreglo a JSON y luego codificar en BASE64
-    $merchantParameters = base64_encode(json_encode($datosPago));
+    $datosPago = json_encode($datosPago);
 
-    // Configurar los parámetros de Redsys
-    // Redsys::getMerchantParameters($merchantParameters);
+    // $signature = hash_hmac("sha256", $datosPago, env('REDSYS_KEY')); // forma alternativa de generar la firma
 
     // Construir el arreglo final de datos para la petición
     $requestData = [
-         'Ds_MerchantParameters'  => Redsys::getMerchantParameters(  json_encode($merchantParameters)  ),
-        //'Ds_MerchantParameters' => Redsys::getMerchantParameters($merchantParameters),
+        'Ds_MerchantParameters'  => base64_encode($datosPago),
         'Ds_SignatureVersion' => Redsys::getVersion(),
         'Ds_Signature' => $signature,
     ];

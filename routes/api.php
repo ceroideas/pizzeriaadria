@@ -62,6 +62,7 @@ Route::group(['prefix' => 'v1'], function() {
 
     // Redsys
     Route::group([ 'middleware' => 'auth:api', 'prefix' => 'payments' ], function ($router) {
-        Route::post('/', [RedsysController::class, 'makePayment']);
+        Route::get('/', [RedsysController::class, 'makePayment']);
+        // Route::post('/', [RedsysController::class, 'makePayment']);
     });
 });

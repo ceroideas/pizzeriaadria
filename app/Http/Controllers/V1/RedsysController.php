@@ -24,9 +24,9 @@ class RedsysController extends Controller
         Redsys::setTransactiontype('0');
         Redsys::setTerminal('1');
         Redsys::setMethod('T'); //Solo pago con tarjeta, no mostramos iupay
-        Redsys::setNotification(url('/noti.php')); //Url de notificacion
-        Redsys::setUrlOk(url('/ok.php')); //Url OK
-        Redsys::setUrlKo(url('/ko.php')); //Url KO
+        Redsys::setNotification(url('/api/ve/noti?order_id='.$request->order_id)); //Url de notificacion
+        Redsys::setUrlOk(url('/completado')); //Url OK
+        Redsys::setUrlKo(url('/error_pedido')); //Url KO
         Redsys::setVersion('HMAC_SHA256_V1');
         Redsys::setTradeName('Pizzeria Adria');
         Redsys::setTitular('Pizzeria Adria');
@@ -46,6 +46,24 @@ class RedsysController extends Controller
 
         return Redsys::executeRedirection();
 
+    }
+
+    public function noti(Request $request)
+    {
+        \Log::info(json_encode($request->all()));
+
+        $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
+        $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
+        $DsResponse = $parameters["Ds_Response"];
+        $DsResponse += 0;
+
+        if (Redsys::check($key, $request->input()) && $DsResponse <= 99) {
+            // lo que quieras que haya si es positiva la confirmación de redsys
+
+        } else {
+            //lo que quieras que haga si no es positivo
+
+        }
     }
 
 }

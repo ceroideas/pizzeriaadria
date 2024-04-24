@@ -21,3 +21,12 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+
+Route::get('/completado', function () {
+    return view('completed');
+});
+
+Route::get('/error_pedido', function () {
+    return view('ko');
+});

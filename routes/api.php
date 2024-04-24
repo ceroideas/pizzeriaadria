@@ -65,4 +65,6 @@ Route::group(['prefix' => 'v1'], function() {
         Route::get('/', [RedsysController::class, 'makePayment']);
         // Route::post('/', [RedsysController::class, 'makePayment']);
     });
+
+    Route::post('noti', [RedsysController::class, 'noti']);
 });

@@ -22,9 +22,11 @@ class MakePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "cardNumber" =>  'required|numeric',
-            "ccv" => 'required|numeric',
-            "expirationDate" => 'required|numeric'
+            "cardNumber" =>  'nullable|numeric',
+            "ccv" => 'nullable|numeric',
+            "expirationDate" => 'nullable|numeric',
+            "amount" => 'required|numeric',
+            "order_id" => 'required|numeric',
         ];
     }
 }

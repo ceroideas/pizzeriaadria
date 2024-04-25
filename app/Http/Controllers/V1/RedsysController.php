@@ -24,7 +24,7 @@ class RedsysController extends Controller
         Redsys::setTransactiontype('0');
         Redsys::setTerminal('1');
         Redsys::setMethod('T'); //Solo pago con tarjeta, no mostramos iupay
-        Redsys::setNotification(url('/api/ve/noti?order_id='.$request->order_id)); //Url de notificacion
+        Redsys::setNotification(url('/api/v1/noti?order_id='.$request->order_id)); //Url de notificacion
         Redsys::setUrlOk(url('/completado')); //Url OK
         Redsys::setUrlKo(url('/error_pedido')); //Url KO
         Redsys::setVersion('HMAC_SHA256_V1');

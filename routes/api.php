@@ -50,9 +50,12 @@ Route::group(['prefix' => 'v1'], function() {
     Route::group([ 'middleware' => 'auth:api', 'prefix' => 'order' ], function ($router) {
         Route::get('/all', [OrdersController::class, 'index']);
         Route::get('getCurrent', [OrdersController::class, 'currentOrder']);
+        Route::get('getHistory', [OrdersController::class, 'orderHistory']);
         Route::post('addProduct', [OrdersController::class, 'addProducts']);
         Route::post('deleteProduct', [OrdersController::class, 'deleteProduct']);
         Route::post('changeOrderStatus', [OrdersController::class, 'changeOrderStatus']);
+
+        Route::post('updateOrderData/{id}', [OrdersController::class, 'updateOrderData']);
     });
 
     //Alergenos
@@ -68,4 +71,6 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     Route::post('noti', [RedsysController::class, 'noti']);
+
+    Route::get('migrar', [RedsysController::class, 'migrar']);
 });

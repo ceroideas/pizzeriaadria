@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Requests\V1\MakePaymentRequest;
 use Ssheduardo\Redsys\Facades\Redsys;
 
+use App\Models\Order;
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Http\Resources\V1\OrderResource;
+
 class RedsysController extends Controller
 {
 
@@ -50,20 +56,39 @@ class RedsysController extends Controller
 
     public function noti(Request $request)
     {
-        \Log::info(json_encode($request->all()));
-
         $key = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
         $parameters = Redsys::getMerchantParameters($request->input('Ds_MerchantParameters'));
         $DsResponse = $parameters["Ds_Response"];
         $DsResponse += 0;
 
+        \Log::info($parameters);
+
         if (Redsys::check($key, $request->input()) && $DsResponse <= 99) {
             // lo que quieras que haya si es positiva la confirmación de redsys
+
+            $order = Order::find($request->order_id);
+            $order->status = 2;
+            $order->save();
 
         } else {
             //lo que quieras que haga si no es positivo
 
+            $order = Order::find($request->order_id);
+            $order->status = 0;
+            $order->save();
+
         }
+    }
+
+    public function migrar()
+    {
+        Schema::table('orders', function(Blueprint $table) {
+            //
+            $table->string('type')->nullable();
+            $table->string('hour')->nullable();
+            $table->string('day')->nullable();
+            $table->string('address')->nullable();
+        });
     }
 
 }

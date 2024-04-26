@@ -23,6 +23,10 @@ class Client extends Model
         'status'
     ];
 
+    public $additional_attributes = [
+        'user_name'
+    ];
+
     public function addresses() {
         return $this->hasMany(Address::class);
     }
@@ -45,5 +49,10 @@ class Client extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function getUserNameAttribute()
+    {
+        return $this->user->name.' '.$this->user->lastname;
     }
 }

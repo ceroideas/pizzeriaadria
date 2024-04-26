@@ -30,3 +30,8 @@ Route::get('/completado', function () {
 Route::get('/error_pedido', function () {
     return view('ko');
 });
+
+Route::get('/prueba', function () {
+    // return App\Models\Client::all();
+    return App\Models\Order::all();
+});

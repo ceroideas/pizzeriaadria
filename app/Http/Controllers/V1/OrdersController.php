@@ -21,7 +21,7 @@ class OrdersController extends Controller
     }
 
     public function changeOrderStatus(ChangeOrderStatusRequest $request) {
-        $order = auth()->user()->client->orders()->where(['status' => '0']);
+        $order = auth()->user()->client->orders()->whereIn('status',[0,-1]);
         if ($order->count()) {
 
             $order = $order->first();
@@ -34,7 +34,7 @@ class OrdersController extends Controller
     }
 
     public function currentOrder() {
-        $order = auth()->user()->client->orders()->where(['status' => '0']);
+        $order = auth()->user()->client->orders()->whereIn('status',[0,-1]);
         if ($order->count()) {
             return new OrderResource($order->first());
         }
@@ -43,8 +43,18 @@ class OrdersController extends Controller
         return response()->json(['status' => 'error', 'message' => 'No tienes nada en tu carrito'], 404);
     }
 
+    public function orderHistory() {
+        $orders = auth()->user()->client->orders()->where('status','!=',0)->where('status','!=',-1);
+        if ($orders->count()) {
+            return OrderResource::collection($orders->get());
+        }
+
+        // No current order
+        return response()->json(['status' => 'error', 'message' => 'No tienes peridos en el carrito'], 404);
+    }
+
     public function deleteProduct(DeleteProductRequest $request) {
-        $order = auth()->user()->client->orders()->where(['status' => '0']);
+        $order = auth()->user()->client->orders()->whereIn('status',[0,-1]);
         if ($order->count()) {
 
             $order = $order->first();
@@ -69,7 +79,7 @@ class OrdersController extends Controller
             $product = Product::where(['id' => $productData['product_id'], 'status' => true])->first();
 
             if ($product) {
-                $orders = auth()->user()->client->orders()->where(['status' => '0']);
+                $orders = auth()->user()->client->orders()->whereIn('status',[0,-1]);
                 $order = $orders->count() ? $orders->first() : auth()->user()->client->orders()->create(['status' => '0']);
 
                 $productSize = null;
@@ -138,6 +148,18 @@ class OrdersController extends Controller
         }
 
         return response()->json($responseMessages, 200);
+    }
+
+    public function updateOrderData(Request $r,$id)
+    {
+        $order = Order::find($id);
+        $order->type = $r->type;
+        $order->hour = $r->hour;
+        $order->day = $r->day;
+        $order->address = $r->address;
+        $order->save();
+
+        return new OrderResource(Order::find($id));
     }
 
     // public function addproduct(AddProductRequest $request) {
